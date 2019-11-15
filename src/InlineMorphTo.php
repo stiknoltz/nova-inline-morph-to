@@ -252,7 +252,11 @@ class InlineMorphTo extends Field
 
         foreach ($fields as $field) {
 
-            $field->fill($request, $relatedInstance);
+            $fill_value = $field->fill($request, $relatedInstance);
+
+            if (is_callable($fill_value)) {
+                call_user_func($fill_value);
+            }
 
         }
 
